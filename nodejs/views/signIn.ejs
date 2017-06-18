@@ -1,0 +1,96 @@
+<html>
+  <head>
+    <title>signIn</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+    <script src="/angularjs/signInAngularJS.js"></script>
+  </head>
+    <style>
+        
+        #header {
+	        margin: 0px auto;
+	        padding: 0;
+	        height: 15%;
+	        width: 100%;
+        }
+        #header .title {
+            position: relative;
+            text-align: center;
+            color:	#000080;
+            top: 45px;
+            font-family:"Times New Roman", Times, serif;
+            font-size:35px;
+        }
+        
+        #signInCSS {
+            margin: 0 auto;
+	        padding: 0;
+	        height: 85%;
+	        width: 100%;
+            background-color: 	#F5F5F5;
+        }
+        
+        
+        #signInCSS .signInForm {
+            position:absolute;
+            top: 30%;
+            left: 38%;
+            text-align: center;
+	        padding: 0;
+	        height: 45%;
+	        width: 25%;
+            background-color: 	#FFFFFF;
+        }
+        td  
+        {  
+            text-align:center; 
+            height: 60px;
+            color:	#696969;
+            font-weight:bold;
+        }  
+        th
+        {
+            text-align:center; 
+            color: 	#000080;
+            height: 90px;
+            font-family:"Times New Roman", Times, serif;
+            font-size:30px;
+            font-weight:bold;
+            border-bottom:2px solid #F5F5F5;
+        }
+        
+        
+
+
+    </style>
+  <body>
+      
+      <div id="header">
+          <p class = "title">Job Board</p>
+	  </div>
+      <div id="signInCSS" ng-app="signIn" ng-controller="myCtrl">  
+          <div class="signInForm">
+              <table width="100%">
+                  <tr><th>Job Board</th></tr>
+                  <table style="position: relative;left:5%;width:90%;">
+                      <tr><td>Sign In</td></tr>
+                      <tr><td style="font-weight:normal;"><input type = "email" ng-model = "email" placeholder="email"></td></tr>
+                      <tr><td style="font-weight:normal;"><input type = "password" ng-model = "password" placeholder="password"></td></tr>
+                      <tr>
+                          <td>
+                              <form>
+                                  <input type="radio" ng-model = "role" value="seeker">Seeker&nbsp;&nbsp;
+                                  <input type="radio" ng-model="role" value="company">Company
+                              </form>
+                          </td>
+                      </tr>
+                      <tr><td><a class="btn btn-primary btn-lg btn-block" ng-click="signInSubmit()">Sign In</a></td></tr>
+                      <tr><td>Don't have an account? Try <a href = "/signUp">SignUp</a></td></tr>
+                  </table>
+              </table>
+          </div>
+      </div>
+  </body>
+</html>

@@ -1,0 +1,150 @@
+<html>
+  <head>
+    <title>Job Description Page</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+    <script src="/angularjs/ng-file-upload.min.js"></script>
+    <script src="/angularjs/jobCompanyAngularJS.js"></script>
+  </head>
+  <style>
+      #header {
+	        margin: 0px 10%;
+	        padding: 0;
+	        height: 8%;
+	        width: 80%;
+            border-bottom:2px solid #D3D3D3;
+        }
+      #header .title {
+            position: relative;
+            text-align: left;
+            color:	#696969;
+            top: 20px;
+            font-family:"Times New Roman", Times, serif;
+            font-size:20px;
+        }
+      #container{
+          width:80%;
+          top:30px;
+          margin: 0px 10%;
+      }
+      ul {
+          float: left;
+          margin-left: 0;
+          padding-left: 0;
+          width: 20%;
+          list-style-type: none;
+      }
+
+      ul a{
+          display: block;
+          width: 200px;
+          text-align: center;
+          height: 40px;
+          line-height: 40px;
+          background: #f8f8f8;
+        }
+      ul .active a, ul a:hover{
+          background: #000080;
+          color: #ffffff;
+      }
+      p{ word-break:break-all; }
+
+      #right {
+          position: relative;
+          float: right;
+          top:50px;
+          left:50px;
+          margin-right: 0;
+          padding-right: 0;
+          width: 20%;
+          text-align: left;
+      }
+      #center {
+          position: relative;
+          top: 50px;
+          margin: 0 auto;
+          width:60%;
+
+      }
+      th {color:	#696969;}
+      td {color:	#696969;}
+
+      #submittedImage {
+
+          width: 40%;
+          height: auto;
+          border-color: #ffffff;
+
+      }
+
+
+
+  </style>
+  <body>
+      <div ng-app="jobCompany" ng-controller="myCtrl">
+          <div id="header">
+              <p class = "title">Job Description
+              <a class="btn btn-primary" style = "float: right;" ng-click="signOut()">Sign Out</a>
+              </p>
+          </div>
+          <div id="container">
+              <div id = "center">
+                  <div style = "text-align: center" ng-hide = "true === edit">
+                    <table class="table table-striped table-hover">
+                        <tr><th>Job Description</th><th>&nbsp;</th></tr>
+                        <tr><td>Title:&nbsp; </td><td><%= job.title %></td></tr>
+                        <tr><td>Status:&nbsp;</td><td><%= job.status %></td></tr>
+                        <tr><td>Description:&nbsp; </td><td><%= job.description %></td></tr>
+                        <tr><td>Responsibilities:&nbsp; </td><td><%= job.responsibilities %></td></tr>
+                        <tr><td>Location:&nbsp; </td><td><%= job.location %></td></tr>
+                        <tr><td>Salary:&nbsp; </td><td><%= job.salary %></td></tr>
+                        <tr><td style = "text-align: right"><a class="btn btn-primary btn-sm" 
+                               ng-click="edit('<%= job.title %>','<%= job.description %>', 
+                                             '<%= job.responsibilities %>','<%= job.location %>',
+                                             '<%= job.salary %>')">Edit</a></td> <td><a class="btn btn-primary btn-sm" ng-click="back()">Back</a></td></tr>
+                        
+                    </table>
+                    <br> <br><br>
+                    <% if (job.applications.length > 0) { %> 
+                      <table class="table table-striped table-hover" style = "text-align: left">
+                          <tr><th>Applications</th><th>&nbsp;</th><th>&nbsp;</th><th>&nbsp;</th></tr>
+                          <% for (var i = 0; i < job.applications.length; i++) { %>
+                              <tr ng-click = "getApplication('<%= job.applications[i].id %>')">
+                                  <td style= "width: 25%">Application Name:</td>
+                                  <td style= "width: 25%"><%= job.applications[i].seeker.firstname %>&nbsp;<%= job.applications[i].seeker.lastname %></td>
+                                  <td style= "width: 25%">status: </td>
+                                  <td style= "width: 25%"><%= job.applications[i].status %> </td>
+                              </tr>
+                          <% } %>  
+                      </table>
+                    <% } %>
+                    
+                  </div>
+                  
+                  
+
+                  <div style = "text-align: left" ng-show = "edit === true">
+                    <table class="table table-striped table-hover">
+                        <tr><th>Job Description</th>
+                            <td><a class="btn btn-primary btn-sm" ng-click="filled('<%= job.id %>')">Filled</a>
+                                <a class="btn btn-primary btn-sm" ng-click="cancel('<%= job.id %>')">Cancel</a></td></tr>
+                        <tr><td>Title: </td><td><input type = "text" ng-model = "title" style = "width: 100%" required/></td></tr>
+                        <tr><td>Status: </td><td><%= job.status %></td></tr>
+                        <tr><td>Responsibilities:</td><td><input type = "text" ng-model = "responsibilities" style = "width: 100%" required/></td></tr>
+                        <tr><td>Location:</td><td><input type = "text" ng-model = "location" style = "width: 100%" required/></td></tr>
+                        <tr><td>Salary:</td><td><input type = "number" ng-model = "salary" style = "width: 100%" required/></td></tr>
+                        <tr><td>Description:</td><td><textarea type = "text" ng-model = "description" style = "width: 100%" required></textarea></td></tr>
+                        <tr><td><a class="btn btn-primary btn-sm" ng-click="update('<%= job.id %>')">Update</a>
+                            <a class="btn btn-primary btn-sm" ng-click="back()">Back</a></td>
+                            </tr>
+                    </table>
+                  </div>
+
+                </div>
+
+
+              </div>
+          </div>
+  </body>
+</html>

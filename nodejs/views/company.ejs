@@ -1,0 +1,215 @@
+<html>
+  <head>
+    <title>Seeker Page</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+    <script src="/angularjs/ng-file-upload.min.js"></script>
+    <script src="/angularjs/companyAngularJS.js"></script>
+  </head>
+  <style>
+      #header {
+	        margin: 0px 10%;
+	        padding: 0;
+	        height: 8%;
+	        width: 80%;
+            border-bottom:2px solid #D3D3D3;
+        }
+      #header .title {
+            position: relative;
+            text-align: left;
+            color:	#696969;
+            top: 20px;
+            font-family:"Times New Roman", Times, serif;
+            font-size:20px;
+        }
+      #container{
+          width:80%;
+          top:30px;
+          margin: 0px 10%;
+      }
+      ul {
+          float: left;
+          margin-left: 0;         
+          padding-left: 0;  
+          width: 20%;
+          list-style-type: none; 
+      }
+      
+      ul a{
+          display: block;
+          width: 200px;
+          text-align: center;
+          height: 40px;
+          line-height: 40px;
+          background: #f8f8f8;
+        }
+      ul .active a, ul a:hover{
+          background: #000080;
+          color: #ffffff;
+      }
+      p{ word-break:break-all; }
+      
+      #right {
+          position: relative;
+          float: right;
+          top:50px;
+          left:50px;
+          margin-right: 0;         
+          padding-right: 0;  
+          width: 20%;
+          text-align: left;
+      }
+      #center {
+          position: relative;
+          top: 50px;
+          margin: 0 auto;
+          width:60%;
+          
+      }
+      th {color:	#696969;}
+      td {color:	#696969;}
+      
+      #submittedImage {
+          
+          width: 40%;
+          height: auto;
+          border-color: #ffffff;
+          
+      }
+      
+    
+  </style>
+  <body>
+      <div ng-app="company" ng-controller="myCtrl">
+          <div id="header">
+              <p class = "title">Job Board
+              <a class="btn btn-primary" style = "float: right;" ng-click="signOut()">Sign Out</a>
+              <a class="btn btn-primary" style = "float: right;" ng-click="getAccount(false)">Account</a>
+              </p>
+          </div>
+          <div id="container">
+              <nav role="navigation" aria-label="context">
+                  <ul ng-init="tab = 1">
+                      <li ng-class="{active:tab===1}"><a href ng-click="getJobs()">jobs</a></li>
+
+                      <li ng-class="{active:tab===2}"><a href ng-click="post()">Post a Job</a></li>
+
+                  </ul>
+              </nav>
+              <div id = "right">
+
+              </div>
+              <div id = "center">
+                  <div ng-show="tab === 0" style = "text-align: center">
+                       <div ng-show="edit">
+                           <table width = "100%">
+                               <tr> 
+                                   <td width = "15%">Name:</td>
+                                   <td width = "25%"><input type = "text" ng-model = "Companyname" placeholder="Company Name" style = "width: 100%" required/></td>
+                                   <td width = "15%">Website:</td>
+                                   <td width = "25%"><input type = "text" ng-model = "website" placeholder="Website" style = "width: 100%" required/></td>
+                               </tr>
+                               <tr>
+                                   <td>Logo image URL:</td>
+                                   <td><input type = "text" ng-model = "logo" placeholder="Image URL" style = "width: 100%" required/></td>
+                               </tr>
+                               <tr>
+                                   <td>Address:</td>
+                                   <td><input type = "text" ng-model = "address" placeholder="Address" style = "width: 100%" required/></td>
+                               </tr>
+                               <tr>
+                                   <td>Description:</td>
+                                   <td colspan = "3">
+                                       <textarea type = "text" ng-model = "description" placeholder="Description" style = "width: 100%; height: 300px" required></textarea>
+                                   </td>
+                               </tr>
+                           </table>
+                           <a class="btn btn-primary" ng-click="getAccount(false)">Cancel</a>
+                           <a class="btn btn-primary" ng-click="update()">Update</a>
+                           
+                       </div>
+                       <div ng-show="edit === false">
+                           <table width = "100%">
+                               <tr>
+                                   <td width = "15%">Name:</td>
+                                   <td width = "25%">{{Companyname}}</td>
+                                   <td width = "15%">Website:</td>
+                                   <td width = "25%">{{website}}</td>
+                               </tr>
+                               <tr>
+                                   <td>Logo image URL:</td>
+                                   <td>{{logo}}</td>
+                               </tr>
+                               <tr>
+                                   <td>Address:</td>
+                                   <td>{{address}}</td>
+                               </tr>
+                               <tr>
+                                   <td>Description:</td>
+                                   <td>{{description}}</td>
+                               </tr>
+                           </table>
+                           <a class="btn btn-primary" ng-click="getAccount(true)">Edit</a>
+                       </div>
+                       
+                  </div>
+                  <div ng-show="tab === 2">
+                      
+                      <table width = "100%">
+                           <tr> 
+                               <td width = "15%">Title:</td>
+                               <td width = "25%"><input type = "text" ng-model = "title" placeholder="Title" style = "width: 100%" required/></td>
+                               <td width = "15%">Salary:</td>
+                               <td width = "25%"><input type = "number" ng-model = "salary" placeholder="Salary" style = "width: 100%" required/></td>
+                           </tr>
+                           <tr>
+                               <td>Responsibilities:</td>
+                               <td colspan = "3">
+                                   <textarea type = "text" ng-model = "responsibilities" placeholder="Responsibilites" style = "width: 100%; height: 300px" required></textarea>
+                               </td>
+                           </tr>
+                           <tr>
+                               <td>Office location:</td>
+                               <td colspan = "3">
+                                   <textarea type = "text" ng-model = "location" placeholder="Location" style = "width: 100%; height: 300px" required></textarea>
+                               </td>
+                           </tr>
+                           <tr>
+                               <td>Description:</td>
+                               <td colspan = "3">
+                                   <textarea type = "text" ng-model = "jobDescription" placeholder="Description" style = "width: 100%; height: 300px" required></textarea>
+                               </td>
+                           </tr>
+                           <tr>
+                               <td></td>
+                               <td></td>
+                               <td><a class="btn btn-primary" ng-click="create()">Create</a></td>
+                               <td></td>
+                           </tr>
+                       </table>
+                       
+                  </div>
+                  
+                  
+                  <div ng-show="tab === 1">
+                      <p>Select a filter option:</p>
+                      <select ng-model="selectedFilter" ng-options = "x.status for x in joboptions" ng-init="selectedFilter = joboptions[0]" >
+                      </select>
+
+
+                      <table ng-repeat = "i in jobs" style = "float: bottom; margin: 10px; width: 100%; border: 1px solid #696969;" ng-click="showJob(i)" class="table table-striped table-hover" ng-show = "selectedFilter.status =='All' || selectedFilter.status == i.status" >
+                           <tr ><td style = "width: 25%">Location: </td><td style = "width: 25%">{{i.location}}</td>
+                                  <td style = "width: 25%">Salary: </td><td style = "width: 25%">{{i.salary}}</td></tr>
+                              <tr><td>Title: </td><td>{{i.title}}</td><td>Responsibilities: </td><td>{{i.responsibilities}}</td></tr>
+                      </table>
+                       
+                  </div>
+
+
+
+              </div>
+          </div>
+      </div>
+  </body>
+</html>

@@ -1,0 +1,26 @@
+{
+  "name": "275-project-frontend",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "body-parser": "latest",
+    "cookie-parser": "latest",
+    "debug": "latest",
+    "ejs": "latest",
+    "express": "latest",
+    "morgan": "latest",
+    "serve-favicon": "latest",
+    "request": "latest",
+    "express-session": "latest",
+    "formidable": "latest",
+    "randomstring": "latest",
+    "client-sessions": "latest",
+    "http": "latest",
+    "request": "latest",
+    "crypto": "latest",
+    "nodemailer": "latest"
+  }
+}
